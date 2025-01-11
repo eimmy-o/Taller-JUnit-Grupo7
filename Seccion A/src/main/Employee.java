@@ -1,4 +1,4 @@
-package tallerpruebas;
+package main;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -17,6 +17,8 @@ public class Employee
 
     public Employee(float salary, String currency, 
         float bonusPercentage, EmployeeType employeeType){
+    	if(salary < 0) throw new IllegalArgumentException("No se permite salarios negativos");
+    	
         this.salary = salary;
         this.currency = currency;
         this.bonusPercentage = bonusPercentage;
@@ -42,7 +44,8 @@ public class Employee
             case Worker:
                 //Si el mes es impar entonces le entrega 
                 //el décimo junto con su salario
-                return month%2==0?salario:salario + rmu/12*2;
+                return month%2==0?salario:
+                	Float.parseFloat(String.format("%.3f", salario + rmu/12*2)) ;
             case Supervisor:
                 float valueS = salario + (bonusPercentage * 0.35F);
                 //Si el mes es impar entonces le entrega 
